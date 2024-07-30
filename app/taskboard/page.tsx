@@ -174,8 +174,6 @@ export default function TaskBoard() {
         },
       });
 
-      console.log(result.draggableId);
-
       dispatch(
         updateTaskPriority({
           authToken: localStorage.getItem("authToken") || "",
