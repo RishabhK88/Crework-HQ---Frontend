@@ -115,13 +115,15 @@ export const DragDropComponent = ({
                                     >
                                       {item.priority}
                                     </button>
-                                  ) : (
+                                  ) : item.priority === "Medium" ? (
                                     <button
                                       type="button"
                                       className="text-white bg-[#FFA235] focus:outline-none font-medium rounded-lg text-xs px-5 py-2.5 text-center mt-2 mb-2"
                                     >
                                       {item.priority}
                                     </button>
+                                  ) : (
+                                    ""
                                   )}
 
                                   <div className="flex items-center">

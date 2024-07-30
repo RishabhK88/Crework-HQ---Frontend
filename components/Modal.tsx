@@ -66,7 +66,7 @@ const Modal: React.FC<ModalProps> = ({
         requestBody: {
           title: title,
           status: status,
-          priority: priority,
+          priority: priority === "" ? undefined : priority,
           description: description,
           deadline: deadline === "" ? undefined : new Date(deadline),
         },
@@ -88,7 +88,7 @@ const Modal: React.FC<ModalProps> = ({
         requestBody: {
           title: title,
           status: status,
-          priority: priority,
+          priority: priority === "" ? undefined : priority,
           description: description,
           deadline: deadline === "" ? new Date() : new Date(deadline),
         },
