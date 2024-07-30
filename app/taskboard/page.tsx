@@ -183,9 +183,7 @@ export default function TaskBoard() {
           },
         })
       )
-        .then(() => {
-          setRefresh((refresh) => refresh + 1);
-        })
+        .then(() => {})
         .catch((err) => {
           console.log(err);
         });
@@ -215,11 +213,13 @@ export default function TaskBoard() {
         authToken: localStorage.getItem("authToken") || "",
         taskId: taskId,
       })
-    ).then(()=>{
-      setRefresh(refresh=>refresh+1);
-    }).catch((err)=>{
-      console.log(err)
-    })
+    )
+      .then(() => {
+        setRefresh((refresh) => refresh + 1);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const setCreateTaskStatus = (
