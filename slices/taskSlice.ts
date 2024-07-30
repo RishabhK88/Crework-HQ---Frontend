@@ -93,7 +93,7 @@ export const fetchTask = createAsyncThunk(
   async (args: FetchTaskArgs) => {
     const { taskId, authToken } = args;
     const response = await axios.get<any>(
-      `https://creworkhqservice.onrender.com/${taskId}`,
+      `https://creworkhqservice.onrender.com/task/${taskId}`,
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -212,7 +212,7 @@ export const updateTask = createAsyncThunk(
   async (args: UpdateTaskArgs) => {
     const { authToken, taskId, requestBody } = args;
     const response = await axios.put<any>(
-      `https://creworkhqservice.onrender.com/${taskId}`,
+      `https://creworkhqservice.onrender.com/task/${taskId}`,
       requestBody,
       {
         headers: {
@@ -276,7 +276,7 @@ export const updateTaskPriority = createAsyncThunk(
   async (args: UpdateTaskPriorityArgs) => {
     const { authToken, taskId, requestBody } = args;
     const response = await axios.put<any>(
-      `https://creworkhqservice.onrender.com/${taskId}`,
+      `https://creworkhqservice.onrender.com/task/updatePriority/${taskId}`,
       requestBody,
       {
         headers: {
