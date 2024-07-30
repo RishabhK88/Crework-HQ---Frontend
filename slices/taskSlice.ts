@@ -35,7 +35,7 @@ export const fetchAllTasks = createAsyncThunk(
   "task/fetchAllTasks",
   async (args: FetchAllTasksArgs) => {
     const { authToken } = args;
-    const response = await axios.get<any>(`http://localhost:3000/task`, {
+    const response = await axios.get<any>(`https://creworkhqservice.onrender.com/task`, {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
@@ -93,7 +93,7 @@ export const fetchTask = createAsyncThunk(
   async (args: FetchTaskArgs) => {
     const { taskId, authToken } = args;
     const response = await axios.get<any>(
-      `http://localhost:3000/task/${taskId}`,
+      `https://creworkhqservice.onrender.com/${taskId}`,
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -152,7 +152,7 @@ export const saveTask = createAsyncThunk(
   async (args: SaveTaskArgs) => {
     const { authToken, requestBody } = args;
     const response = await axios.post<any>(
-      `http://localhost:3000/task/`,
+      `https://creworkhqservice.onrender.com/task/`,
       requestBody,
       {
         headers: {
@@ -212,7 +212,7 @@ export const updateTask = createAsyncThunk(
   async (args: UpdateTaskArgs) => {
     const { authToken, taskId, requestBody } = args;
     const response = await axios.put<any>(
-      `http://localhost:3000/task/${taskId}`,
+      `https://creworkhqservice.onrender.com/${taskId}`,
       requestBody,
       {
         headers: {
@@ -276,7 +276,7 @@ export const updateTaskPriority = createAsyncThunk(
   async (args: UpdateTaskPriorityArgs) => {
     const { authToken, taskId, requestBody } = args;
     const response = await axios.put<any>(
-      `http://localhost:3000/task/updatePriority/${taskId}`,
+      `https://creworkhqservice.onrender.com/${taskId}`,
       requestBody,
       {
         headers: {
@@ -335,7 +335,7 @@ export const deleteTask = createAsyncThunk(
   async (args: DeleteTaskArgs) => {
     const { authToken, taskId } = args;
     const response = await axios.delete<any>(
-      `http://localhost:3000/task/${taskId}`,
+      `https://creworkhqservice.onrender.com/task/${taskId}`,
       {
         headers: {
           Authorization: `Bearer ${authToken}`,

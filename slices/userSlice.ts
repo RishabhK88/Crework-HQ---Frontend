@@ -28,7 +28,7 @@ export const signIn = createAsyncThunk(
   "user/signIn",
   async ({ requestBody }: { requestBody: any }) => {
     const response = await axios.post<any>(
-      "http://localhost:3000/user/signin",
+      "https://creworkhqservice.onrender.com/user/signin",
       requestBody
     );
     return response.data;
@@ -82,7 +82,7 @@ export const signUp = createAsyncThunk(
   "user/signUp",
   async ({ requestBody }: { requestBody: any }) => {
     const response = await axios.post<any>(
-      "http://localhost:3000/user/signup",
+      "https://creworkhqservice.onrender.com/user/signup",
       requestBody
     );
     return response.data;
@@ -135,7 +135,7 @@ export const fetchUser = createAsyncThunk(
   async (args: FetchUserArgs) => {
     const { authToken } = args;
     const response = await axios.get<any>(
-      `http://localhost:3000/user/getUser`,
+      `https://creworkhqservice.onrender.com/user/getUser`,
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
