@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import SignIn from "./signin/page";
 import TaskBoard from "./taskboard/page";
+import { Spinner } from "@/assets/Spinner";
 
 export default function Home() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -16,6 +17,6 @@ export default function Home() {
     setOpen(false);
   }, []);
   return (
-    <>{open ? "Loading" : !isAuthenticated ? <SignIn /> : <TaskBoard />}</>
+    <>{open ? <Spinner /> : !isAuthenticated ? <SignIn /> : <TaskBoard />}</>
   );
 }

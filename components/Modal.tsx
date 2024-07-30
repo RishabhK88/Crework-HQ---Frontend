@@ -11,11 +11,12 @@ import React, { useEffect, useState } from "react";
 
 interface ModalProps {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: (refresh: boolean) => void;
   filledInStatus: string;
   filledInTitle: string;
   filledInPriority: string;
   filledInDescription: string;
+  filledInDeadline: string;
   taskId: string;
   update: boolean;
 }
@@ -27,27 +28,26 @@ const Modal: React.FC<ModalProps> = ({
   filledInDescription,
   filledInPriority,
   filledInTitle,
+  filledInDeadline,
   taskId,
   update,
 }) => {
   const [title, setTitle] = useState<string>(filledInTitle);
   const [status, setStatus] = useState<string>(filledInStatus);
   const [priority, setPriority] = useState<string>(filledInPriority);
-  const [deadline, setDeadline] = useState<string>("");
+  const [deadline, setDeadline] = useState<string>(filledInDeadline);
   const [description, setDescription] = useState<string>(filledInDescription);
   const [updateMode, setUpdateMode] = useState<boolean>(update);
   const [id, setId] = useState<string>(taskId);
 
   const dispatch = useAppDispatch();
 
-  console.log(title);
-
   useEffect(() => {
-    console.log(1);
     setStatus(filledInStatus);
     setTitle(filledInTitle);
     setDescription(filledInDescription);
     setPriority(filledInPriority);
+    setDeadline(filledInDeadline);
     setId(taskId);
     setUpdateMode(update);
   }, [
@@ -68,11 +68,12 @@ const Modal: React.FC<ModalProps> = ({
           status: status,
           priority: priority,
           description: description,
+          deadline: deadline === "" ? undefined : new Date(deadline),
         },
       })
     )
       .then(() => {
-        onClose();
+        onClose(true);
       })
       .catch((e) => {
         console.log(e);
@@ -80,10 +81,6 @@ const Modal: React.FC<ModalProps> = ({
   };
 
   const handleUpdateTask = () => {
-    console.log(title)
-    console.log(status)
-    console.log(description)
-    console.log(priority)
     dispatch(
       updateTask({
         authToken: localStorage.getItem("authToken") || "",
@@ -93,11 +90,12 @@ const Modal: React.FC<ModalProps> = ({
           status: status,
           priority: priority,
           description: description,
+          deadline: deadline === "" ? new Date() : new Date(deadline),
         },
       })
     )
       .then(() => {
-        onClose();
+        onClose(true);
       })
       .catch((e) => {
         console.log(e);
@@ -114,14 +112,13 @@ const Modal: React.FC<ModalProps> = ({
             <div className="flex space-x-2">
               <button
                 className="text-gray-500 hover:text-gray-700"
-                onClick={onClose}
+                onClick={() => {
+                  onClose(false);
+                }}
               >
                 <Close />
               </button>
-              <button
-                className="text-gray-500 hover:text-gray-700"
-                onClick={onClose}
-              >
+              <button className="text-gray-500 hover:text-gray-700">
                 <Resize />
               </button>
             </div>
@@ -213,7 +210,9 @@ const Modal: React.FC<ModalProps> = ({
               type="date"
               className="bg-transparent text-gray-500 text-sm rounded-lg outline-none focus:outline-none w-1/2"
               placeholder="Not Selected"
-              value={deadline}
+              value={
+                deadline ? new Date(deadline).toISOString().split("T")[0] : ""
+              }
               onChange={(e) => {
                 setDeadline(e.target.value);
               }}

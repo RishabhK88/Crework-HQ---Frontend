@@ -9,14 +9,12 @@ export const DragDropComponent = ({
   columns,
   setColumns,
   onDragEnd,
-  addNewTask,
   setCreateInStatus,
   handleDelete,
 }: {
   columns: any;
   setColumns: any;
   onDragEnd: any;
-  addNewTask: any;
   setCreateInStatus: any;
   handleDelete: any;
 }) => {
@@ -75,6 +73,7 @@ export const DragDropComponent = ({
                                             item.priority,
                                             item.description,
                                             item.id,
+                                            item.deadline,
                                             true
                                           );
                                         }}
@@ -120,7 +119,11 @@ export const DragDropComponent = ({
                                     <Clock />
                                     &nbsp;
                                     <div className="text-sm font-semibold text-[#606060]">
-                                      {item.date ? item.date : "No Deadline"}
+                                      {item.deadline
+                                        ? new Date(item.deadline)
+                                            .toISOString()
+                                            .split("T")[0]
+                                        : "No Deadline"}
                                     </div>
                                   </div>
                                   <div className="text-sm font-medium text-[#797979] mt-2">

@@ -14,6 +14,7 @@ import { BannerSection } from "@/components/BannerSection";
 import { ActionsBar } from "@/components/ActionsBar";
 import { DragDropComponent } from "@/components/DragDropComponent";
 import { fetchUser } from "@/slices/userSlice";
+import { Spinner } from "@/assets/Spinner";
 
 interface ColumnDefinition {
   name: string;
@@ -60,6 +61,7 @@ export default function TaskBoard() {
   const [createInTitle, setCreateInTitle] = useState("");
   const [createInPriority, setCreateInPriority] = useState("");
   const [createInDescription, setCreateInDesription] = useState("");
+  const [createInDeadline, setCreateInDeadline] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
   const [taskId, setTaskId] = useState("");
 
@@ -183,7 +185,9 @@ export default function TaskBoard() {
           },
         })
       )
-        .then(() => {})
+        .then(() => {
+          setRefresh((refresh) => refresh + 1);
+        })
         .catch((err) => {
           console.log(err);
         });
@@ -202,9 +206,11 @@ export default function TaskBoard() {
     }
   };
 
-  const handleModalClose = () => {
+  const handleModalClose = (refresh?: boolean) => {
     setOpenModal(false);
-    setRefresh((refresh) => refresh + 1);
+    if (refresh) {
+      setRefresh((refresh) => refresh + 1);
+    }
   };
 
   const handleDelete = (taskId: string) => {
@@ -228,6 +234,7 @@ export default function TaskBoard() {
     priority?: string,
     description?: string,
     taskId?: string,
+    deadline?: string,
     update?: boolean
   ) => {
     setCreateInStatus(status);
@@ -235,61 +242,68 @@ export default function TaskBoard() {
     setCreateInPriority(priority || "");
     setCreateInTitle(title || "");
     setTaskId(taskId || "");
+    setCreateInDeadline(deadline || "");
     setIsUpdate(update || false);
     handleCreateTask();
   };
 
-  return open ? (
-    "Loading"
-  ) : (
-    <div className="grid grid-cols-5 w-screen h-screen">
-      <Modal
-        isOpen={openModal}
-        onClose={handleModalClose}
-        filledInStatus={createInStatus}
-        filledInTitle={createInTitle}
-        filledInDescription={createInDescription}
-        filledInPriority={createInPriority}
-        taskId={taskId}
-        update={isUpdate}
-      />
-
-      <div className="col-span-1 p-4">
-        <Sidebar
-          handleCreateTask={setCreateTaskStatus}
-          name={userName.split(" ")[0]}
+  return (
+    <>
+      {" "}
+      {open ? <Spinner /> : ""}
+      <div
+        className={`grid grid-cols-5 w-screen h-screen ${
+          open ? "opacity-50" : ""
+        }`}
+      >
+        <Modal
+          isOpen={openModal}
+          onClose={handleModalClose}
+          filledInStatus={createInStatus}
+          filledInTitle={createInTitle}
+          filledInDescription={createInDescription}
+          filledInPriority={createInPriority}
+          filledInDeadline={createInDeadline}
+          taskId={taskId}
+          update={isUpdate}
         />
-      </div>
-      <div className="col-span-4 p-4 bg-gray-100">
-        <div className="h-full w-full">
-          <div className="flex justify-between items-center">
-            <div className="text-5xl font-semibold">
-              Good Morning, {userName.split(" ")[0]}!
+
+        <div className="col-span-1 p-4">
+          <Sidebar
+            handleCreateTask={setCreateTaskStatus}
+            name={userName.split(" ")[0]}
+          />
+        </div>
+        <div className="col-span-4 p-4 bg-gray-100">
+          <div className="h-full w-full">
+            <div className="flex justify-between items-center">
+              <div className="text-5xl font-semibold">
+                Good Morning, {userName.split(" ")[0]}!
+              </div>
+              <div className="flex">
+                <div className="text-base font-normal">Help & Feedback</div>
+                &nbsp;
+                <HelpAndFeedback />
+              </div>
             </div>
-            <div className="flex">
-              <div className="text-base font-normal">Help & Feedback</div>
-              &nbsp;
-              <HelpAndFeedback />
+            <div className="mt-4 grid grid-cols-3 gap-2">
+              <BannerSection />
             </div>
-          </div>
-          <div className="mt-4 grid grid-cols-3 gap-2">
-            <BannerSection />
-          </div>
-          <div className="mt-4 flex justify-between">
-            <ActionsBar handleCreateTask={setCreateTaskStatus} />
-          </div>
-          <div className="mt-2 p-2 bg-white justify-between grid grid-cols-4 gap-4 h-1/2">
-            <DragDropComponent
-              columns={columns}
-              setColumns={setColumns}
-              onDragEnd={onDragEnd}
-              addNewTask={handleCreateTask}
-              setCreateInStatus={setCreateTaskStatus}
-              handleDelete={handleDelete}
-            />
+            <div className="mt-4 flex justify-between">
+              <ActionsBar handleCreateTask={setCreateTaskStatus} />
+            </div>
+            <div className="mt-2 p-2 bg-white justify-between grid grid-cols-4 gap-4 h-1/2">
+              <DragDropComponent
+                columns={columns}
+                setColumns={setColumns}
+                onDragEnd={onDragEnd}
+                setCreateInStatus={setCreateTaskStatus}
+                handleDelete={handleDelete}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

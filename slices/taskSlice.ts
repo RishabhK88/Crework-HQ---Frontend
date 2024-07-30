@@ -10,7 +10,7 @@ interface Task {
   description: string;
   status: string;
   priority?: string;
-  deadline?: Date;
+  deadline?: Date | undefined;
 }
 
 // Get All Tasks By User
