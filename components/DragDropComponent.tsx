@@ -63,7 +63,11 @@ export const DragDropComponent = ({
                                   }}
                                 >
                                   <div className="font-medium text-[#606060] text-base w-full justify-between flex">
-                                    {item.title} &nbsp;
+                                    {item.title
+                                      ? item.title.slice(0, 16) +
+                                        (item.title.length > 16 ? "..." : "")
+                                      : ""}{" "}
+                                    &nbsp;
                                     <div className="space-x-2">
                                       <button
                                         onClick={() => {
@@ -89,8 +93,13 @@ export const DragDropComponent = ({
                                       </button>
                                     </div>
                                   </div>
-                                  <div className="text-sm text-[#797979]">
-                                    {item.description}
+                                  <div className="text-sm text-[#797979] text-wrap break-words">
+                                    {item.description
+                                      ? item.description.slice(0, 100) +
+                                        (item.description.length > 100
+                                          ? "..."
+                                          : "")
+                                      : ""}
                                   </div>
                                   {item.priority === "Low" ? (
                                     <button
