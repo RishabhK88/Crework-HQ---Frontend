@@ -22,8 +22,8 @@ interface ColumnDefinition {
 
 interface Columns {
   ToDo: ColumnDefinition;
-  UnderReview: ColumnDefinition;
   InProgress: ColumnDefinition;
+  UnderReview: ColumnDefinition;
   Completed: ColumnDefinition;
 }
 
@@ -33,12 +33,12 @@ export default function TaskBoard() {
       name: "To Do",
       items: [],
     },
-    UnderReview: {
-      name: "Under Review",
-      items: [],
-    },
     InProgress: {
       name: "In Progress",
+      items: [],
+    },
+    UnderReview: {
+      name: "Under Review",
       items: [],
     },
     Completed: {
@@ -134,8 +134,8 @@ export default function TaskBoard() {
 
       const taskStatus = {
         ToDo: { name: "To Do", items: tempTodo },
-        UnderReview: { name: "Under Review", items: tempUnderReview },
         InProgress: { name: "In Progress", items: tempInProgress },
+        UnderReview: { name: "Under Review", items: tempUnderReview },
         Completed: { name: "Completed", items: tempCompleted },
       };
 

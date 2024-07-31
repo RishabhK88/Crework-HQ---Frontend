@@ -18,6 +18,25 @@ export const DragDropComponent = ({
   setCreateInStatus: any;
   handleDelete: any;
 }) => {
+  function calculateTimeDifference(existingDatetime: string) {
+    const now: any = new Date();
+
+    const existingDate: any = new Date(existingDatetime);
+
+    const diffMilliseconds = Math.abs(now - existingDate);
+
+    const diffHours = diffMilliseconds / (1000 * 60 * 60);
+    const diffDays = diffMilliseconds / (1000 * 60 * 60 * 24);
+
+    let timeDifference;
+    if (diffDays >= 1) {
+      timeDifference = `${diffDays.toFixed(0)} days`;
+    } else {
+      timeDifference = `${diffHours.toFixed(0)} hours`;
+    }
+    return timeDifference;
+  }
+
   return (
     <DragDropContext
       onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
@@ -138,7 +157,9 @@ export const DragDropComponent = ({
                                     </div>
                                   </div>
                                   <div className="text-sm font-medium text-[#797979] mt-2">
-                                    1 hr ago
+                                    {item.deadline
+                                      ? calculateTimeDifference(item.deadline)
+                                      : ""}
                                   </div>
                                 </div>
                               );

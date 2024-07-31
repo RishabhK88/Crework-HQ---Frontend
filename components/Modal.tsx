@@ -39,6 +39,7 @@ const Modal: React.FC<ModalProps> = ({
   const [description, setDescription] = useState<string>(filledInDescription);
   const [updateMode, setUpdateMode] = useState<boolean>(update);
   const [id, setId] = useState<string>(taskId);
+  const [error, setError] = useState<string>("");
 
   const dispatch = useAppDispatch();
 
@@ -58,6 +59,19 @@ const Modal: React.FC<ModalProps> = ({
     taskId,
     update,
   ]);
+
+  function formatDate(inputString: string) {
+    const date = new Date(inputString);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}`;
+
+    return formattedDate;
+  }
 
   const handleCreateTask = () => {
     dispatch(
@@ -207,12 +221,10 @@ const Modal: React.FC<ModalProps> = ({
               </span>
             </div>
             <input
-              type="date"
+              type="datetime-local"
               className="bg-transparent text-gray-500 text-sm rounded-lg outline-none focus:outline-none w-1/2"
               placeholder="Not Selected"
-              value={
-                deadline ? new Date(deadline).toISOString().split("T")[0] : ""
-              }
+              value={deadline ? formatDate(deadline) : ""}
               onChange={(e) => {
                 setDeadline(e.target.value);
               }}
@@ -237,10 +249,29 @@ const Modal: React.FC<ModalProps> = ({
           <button
             type="button"
             className="w-1/3 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-            onClick={update ? handleUpdateTask : handleCreateTask}
+            onClick={
+              title === "" && status === ""
+                ? () => {
+                    setError("Title & Status are required fields!");
+                  }
+                : title === ""
+                ? () => {
+                    setError("Title is a required field!");
+                  }
+                : status === ""
+                ? () => {
+                    setError("Status is a required field");
+                  }
+                : update
+                ? handleUpdateTask
+                : handleCreateTask
+            }
           >
             Save
           </button>
+        </div>
+        <div className="mt-2 text-red-400 flex justify-center align-middle">
+          {error}
         </div>
       </div>
     </div>
