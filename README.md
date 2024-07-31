@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+```
+# Trello-Style Task Management Application - Frontend
 
-## Getting Started
+This repository contains the frontend code for a web-based task management application similar to Trello, built using Next.js, TypeScript, Axios, Redux Toolkit, Tailwind CSS, and react-beautiful-dnd.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1. **User Authentication:**
+    - Signup and login functionality using email and password.
+    - Secure user session management.
+
+2. **Task Board:**
+    - Upon logging in, users see their personal task board.
+    - The board has four columns: "To-Do", "In Progress", “Under Review” and "Completed".
+
+3. **Task Management:**
+    - Users can create new tasks in any column.
+    - Each task can have:
+        - A title (mandatory)
+        - A description (optional)
+        - Status (mandatory, automatically filled when created in a specific section)
+        - Priority (optional, with values: Low, Medium, Urgent)
+        - Deadline (optional)
+    - Users can edit and delete tasks after creation.
+
+4. **Drag and Drop Functionality:**
+    - Implemented using `react-beautiful-dnd` to move tasks between columns.
+    - The task's status updates automatically when moved to a different column.
+
+## Tech Stack
+
+- **Frontend:** Next.js with TypeScript
+- **State Management:** Redux Toolkit
+- **API Fetching:** Axios
+- **Styling:** Tailwind CSS
+- **Drag and Drop:** react-beautiful-dnd
+
+## Setup Instructions
+
+### Prerequisites
+
+- Node.js (v14.x or later)
+- npm (v6.x or later)
+
+### Clone the Repository
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+git clone repositoryurl
+cd repositorydirectory
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Install Dependencies
 
-## Learn More
+```
 
-To learn more about Next.js, take a look at the following resources:
+npm install
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Setup Environment Variables
 
-## Deploy on Vercel
+Create a `.env.local` file in the root directory and add the following environment variables:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+NEXT\_PUBLIC\_API\_URL=your-backend-api-url
+
+```
+
+### Run the Application
+
+```
+
+npm run dev
+
+```
+
+## Folder Structure
+
+- **/pages**: Contains Next.js pages.
+- **/components**: Reusable UI components.
+- **/redux**: Redux Toolkit slices and store configuration.
+- **/styles**: Global and component-specific styles using Tailwind CSS.
+- **/utils**: Utility functions and API calls.
+
+## Key Dependencies
+
+- **Next.js**: Framework for server-rendered React applications.
+- **TypeScript**: Typed JavaScript for better development experience.
+- **Redux Toolkit**: State management library.
+- **Axios**: Promise-based HTTP client for API fetching.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
+- **react-beautiful-dnd**: Drag and drop functionality for React.
+
+## Available Scripts
+
+- `npm run dev`: Runs the app in the development mode.
+- `npm run build`: Builds the app for production.
+- `npm run start`: Runs the built app in production mode.
+
+## Contact
+
+For any questions or feedback, please reach out to  rishabhrare8@gmail.com
+```

@@ -10,11 +10,45 @@ export default function AuthComponent({ authType }: { authType: string }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [error, setError] = useState<string[]>([]);
 
   const dispatch = useAppDispatch();
   const { push } = useRouter();
 
   const handleSignUp = () => {
+    setError([]);
+
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let hasErrors = false;
+
+    if (name.length < 1) {
+      setError((prevErrors) => [...prevErrors, "Name is Blank."]);
+      hasErrors = true;
+    }
+
+    if (username.length < 1) {
+      setError((prevErrors) => [...prevErrors, "Username is Blank."]);
+      hasErrors = true;
+    } else {
+      if (!regex.test(username)) {
+        setError((prevErrors) => [
+          ...prevErrors,
+          "Please Enter a Valid Email.",
+        ]);
+        hasErrors = true;
+      }
+    }
+
+    if (password.length < 8 || password.length > 16) {
+      setError((prevErrors) => [
+        ...prevErrors,
+        "The Password should be 8-16 Characters Long.",
+      ]);
+      hasErrors = true;
+    }
+
+    if (hasErrors) return;
+
     const requestBody = {
       username: username,
       password: password,
@@ -29,10 +63,42 @@ export default function AuthComponent({ authType }: { authType: string }) {
       })
       .catch((err) => {
         console.log(err);
+        setError((prevErrors) => [
+          ...prevErrors,
+          "The Username already exists!",
+        ]);
       });
   };
 
   const handleSignIn = () => {
+    setError([]);
+
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let hasErrors = false;
+
+    if (username.length < 1) {
+      setError((prevErrors) => [...prevErrors, "Username is Blank."]);
+      hasErrors = true;
+    } else {
+      if (!regex.test(username)) {
+        setError((prevErrors) => [
+          ...prevErrors,
+          "Please Enter a Valid Email.",
+        ]);
+        hasErrors = true;
+      }
+    }
+
+    if (password.length < 8 || password.length > 16) {
+      setError((prevErrors) => [
+        ...prevErrors,
+        "The Password should be 8-16 Characters Long.",
+      ]);
+      hasErrors = true;
+    }
+
+    if (hasErrors) return;
+
     const requestBody = {
       username: username,
       password: password,
@@ -46,6 +112,7 @@ export default function AuthComponent({ authType }: { authType: string }) {
       })
       .catch((err) => {
         console.log(err);
+        setError((prevErrors) => [...prevErrors, "Invalid Credentials!"]);
       });
   };
 
@@ -102,19 +169,34 @@ export default function AuthComponent({ authType }: { authType: string }) {
           </div>
         </div>
       </div>
+      <div className="flex justify-center mt-2 text-xs text-red-400 whitespace-pre-wrap">
+        {error.length > 0 ? error.join(" ") : ""}
+      </div>
       {authType === "SignUp" ? (
         <div className="flex justify-center mt-2">
           Already have an account?&nbsp;
-          <span className="text-[#0054A1] hover:cursor-pointer" onClick={()=>{
-            push("/signin")
-          }}>Log in</span>.
+          <span
+            className="text-[#0054A1] hover:cursor-pointer"
+            onClick={() => {
+              push("/signin");
+            }}
+          >
+            Log in
+          </span>
+          .
         </div>
       ) : (
         <div className="flex justify-center mt-2">
           Don't have an account? Create a&nbsp;
-          <span className="text-[#0054A1] hover:cursor-pointer" onClick={()=>{
-            push("/signup")
-          }}>new account</span>.
+          <span
+            className="text-[#0054A1] hover:cursor-pointer"
+            onClick={() => {
+              push("/signup");
+            }}
+          >
+            new account
+          </span>
+          .
         </div>
       )}
     </div>
