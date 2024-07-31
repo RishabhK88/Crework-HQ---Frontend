@@ -62,7 +62,7 @@ npm install
 Create a `.env.local` file in the root directory and add the following environment variables:
 
 ```
-NEXT\_PUBLIC\_API\_URL=your-backend-api-url
+NEXT_PUBLIC_BACKEND_URL=<your-backend-api-url>
 ```
 
 ### Run the Application
