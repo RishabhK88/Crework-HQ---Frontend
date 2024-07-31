@@ -36,7 +36,7 @@ export const fetchAllTasks = createAsyncThunk(
   async (args: FetchAllTasksArgs) => {
     const { authToken } = args;
     const response = await axios.get<any>(
-      `https://creworkhqservice.onrender.com/task`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/task`,
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -96,7 +96,7 @@ export const fetchTask = createAsyncThunk(
   async (args: FetchTaskArgs) => {
     const { taskId, authToken } = args;
     const response = await axios.get<any>(
-      `https://creworkhqservice.onrender.com/task/${taskId}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/task/${taskId}`,
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -155,7 +155,7 @@ export const saveTask = createAsyncThunk(
   async (args: SaveTaskArgs) => {
     const { authToken, requestBody } = args;
     const response = await axios.post<any>(
-      `https://creworkhqservice.onrender.com/task/`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/task/`,
       requestBody,
       {
         headers: {
@@ -215,7 +215,7 @@ export const updateTask = createAsyncThunk(
   async (args: UpdateTaskArgs) => {
     const { authToken, taskId, requestBody } = args;
     const response = await axios.put<any>(
-      `https://creworkhqservice.onrender.com/task/${taskId}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/task/${taskId}`,
       requestBody,
       {
         headers: {
@@ -279,7 +279,7 @@ export const updateTaskStatus = createAsyncThunk(
   async (args: UpdateTaskStatusArgs) => {
     const { authToken, taskId, requestBody } = args;
     const response = await axios.put<any>(
-      `https://creworkhqservice.onrender.com/task/updateStatus/${taskId}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/task/updateStatus/${taskId}`,
       requestBody,
       {
         headers: {
@@ -338,7 +338,7 @@ export const deleteTask = createAsyncThunk(
   async (args: DeleteTaskArgs) => {
     const { authToken, taskId } = args;
     const response = await axios.delete<any>(
-      `https://creworkhqservice.onrender.com/task/${taskId}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/task/${taskId}`,
       {
         headers: {
           Authorization: `Bearer ${authToken}`,

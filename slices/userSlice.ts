@@ -28,7 +28,7 @@ export const signIn = createAsyncThunk(
   "user/signIn",
   async ({ requestBody }: { requestBody: any }) => {
     const response = await axios.post<any>(
-      "https://creworkhqservice.onrender.com/user/signin",
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/signin`,
       requestBody
     );
     return response.data;
@@ -82,7 +82,7 @@ export const signUp = createAsyncThunk(
   "user/signUp",
   async ({ requestBody }: { requestBody: any }) => {
     const response = await axios.post<any>(
-      "https://creworkhqservice.onrender.com/user/signup",
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/signup`,
       requestBody
     );
     return response.data;
@@ -135,7 +135,7 @@ export const fetchUser = createAsyncThunk(
   async (args: FetchUserArgs) => {
     const { authToken } = args;
     const response = await axios.get<any>(
-      `https://creworkhqservice.onrender.com/user/getUser`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/getUser`,
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
