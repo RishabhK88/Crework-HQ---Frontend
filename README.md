@@ -5,6 +5,8 @@ This repository contains the frontend code for a web-based task management appli
 
 The above application was built as a part of [Main Repo](https://github.com/RishabhK88/CreworkHQ-Taskboard) for [assignment](https://crework.notion.site/Assignment-Trello-Style-Task-Management-Application-0bcb3b4db4504d6199b803704e561e87) by [Crework](https://www.crework.club/)
 
+Design Requirements: [Figma File](https://www.figma.com/design/cGxPHdNwnTKRtY02oH9pt4/Assignment---Full-Stack-Developer?node-id=0-1&t=zeuLIeUShvmOwqJv-1)
+
 ## Features
 
 1. **User Authentication:**
