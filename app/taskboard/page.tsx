@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   deleteTask,
   fetchAllTasks,
-  updateTaskPriority,
+  updateTaskStatus,
 } from "@/slices/taskSlice";
 import { Columns } from "@/assets/icons/Columns";
 import { Sidebar } from "@/components/Sidebar";
@@ -174,7 +174,7 @@ export default function TaskBoard() {
       });
 
       dispatch(
-        updateTaskPriority({
+        updateTaskStatus({
           authToken: localStorage.getItem("authToken") || "",
           taskId: result.draggableId,
           requestBody: {

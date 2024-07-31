@@ -252,31 +252,31 @@ export const updateTaskSlice = createSlice({
 
 // Update Task Priority
 
-interface TaskPriority {
+interface TaskStatus {
   status: string;
 }
 
-interface UpdateTaskPriorityState {
+interface UpdateTaskStatusState {
   loading: boolean;
-  payload: TaskPriority | null;
+  payload: TaskStatus | null;
   error: any;
 }
 
-const initialUpdateTaskPriorityState: UpdateTaskPriorityState = {
+const initialUpdateTaskStatusState: UpdateTaskStatusState = {
   loading: false,
   payload: null,
   error: [],
 };
 
-interface UpdateTaskPriorityArgs {
+interface UpdateTaskStatusArgs {
   authToken: string;
   taskId: string;
-  requestBody: TaskPriority;
+  requestBody: TaskStatus;
 }
 
-export const updateTaskPriority = createAsyncThunk(
-  "task/updateTaskPriority",
-  async (args: UpdateTaskPriorityArgs) => {
+export const updateTaskStatus = createAsyncThunk(
+  "task/updateTaskStatus",
+  async (args: UpdateTaskStatusArgs) => {
     const { authToken, taskId, requestBody } = args;
     const response = await axios.put<any>(
       `https://creworkhqservice.onrender.com/task/updateStatus/${taskId}`,
@@ -291,9 +291,9 @@ export const updateTaskPriority = createAsyncThunk(
   }
 );
 
-export const updateTaskPrioritySlice = createSlice({
-  name: "updateTaskPrioritySlice",
-  initialState: initialUpdateTaskPriorityState,
+export const updateTaskStatusSlice = createSlice({
+  name: "updateTaskStatusSlice",
+  initialState: initialUpdateTaskStatusState,
   reducers: {
     clearErrorList: (state) => {
       state.error = [];
@@ -377,6 +377,6 @@ export default combineReducers({
   getAllTasksSlice: allTasksSlice.reducer,
   saveTaskSlice: saveTaskSlice.reducer,
   updateTaskSlice: allTasksSlice.reducer,
-  updateTaskPrioritySlice: updateTaskPrioritySlice.reducer,
+  updateTaskPrioritySlice: updateTaskStatusSlice.reducer,
   deleteTaskSlice: deleteTaskSlice.reducer,
 });
